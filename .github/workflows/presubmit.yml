@@ -28,6 +28,7 @@ jobs:
       run:
         shell: bash
     strategy:
+      fail-fast: true
       matrix:
         CMAKE: [3.26.4]
         COMPILER:
@@ -368,6 +369,7 @@ jobs:
       run:
         shell: pwsh
     strategy:
+      fail-fast: true
       matrix:
         VER: [v142, v143, clangcl]
         GEN: [Visual Studio 17 2022, Ninja Multi-Config]
@@ -443,11 +445,11 @@ jobs:
       with:
         path: |
           C:\vcpkg
-        key: x64-windows-sfml-tclap-glm-glew-stb
+        key: x64-windows-freetype-sfml-tclap-glm-glew-stb
 
     - name: Install dependencies (vcpkg)
       if: matrix.DEPS == 'vcpkg' && steps.vcpkg-install.outputs.cache-hit != 'true'
-      run: C:\vcpkg\vcpkg.exe --triplet=x64-windows install sfml tclap glm glew stb
+      run: C:\vcpkg\vcpkg.exe --triplet=x64-windows install freetype sfml tclap glm glew stb
 
     - name: Set up compiler flags
       run: |
@@ -629,6 +631,7 @@ jobs:
       run:
         shell: bash
     strategy:
+      fail-fast: true
       matrix:
         GEN:
         - Xcode
@@ -664,14 +667,14 @@ jobs:
 
     - name: Install dependencies (Homebrew)
       if: matrix.DEPS == 'system'
-      run: brew install tclap glm glew sfml mesa-glu
+      run: brew install tclap glm glew freetype sfml mesa-glu
 
     - name: Install dependencies (vcpkg)
       if: matrix.DEPS == 'vcpkg'
       run: |
         git clone https://github.com/Microsoft/vcpkg.git vcpkg
         ./vcpkg/bootstrap-vcpkg.sh
-        ./vcpkg/vcpkg install tclap glm glew sfml stb
+        ./vcpkg/vcpkg install tclap glm glew freetype sfml stb
 
     - name: Set up compiler flags
       run: |
@@ -738,6 +741,7 @@ jobs:
       run:
         shell: bash
     strategy:
+      fail-fast: true
       matrix:
         #os: [ubuntu-latest, macos-latest]
         os: [ubuntu-latest]
@@ -836,6 +840,7 @@ jobs:
         -D ANDROID_ABI=${{matrix.ABI}}
         -D ANDROID_PLATFORM=${{matrix.API_LEVEL}}
         -D OPENCL_SDK_BUILD_OPENGL_SAMPLES=OFF
+        -D OPENCL_SDK_BUILD_VULKAN_SAMPLES=OFF
         -S $GITHUB_WORKSPACE
         -B $GITHUB_WORKSPACE/build
 
