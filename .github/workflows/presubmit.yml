@@ -445,7 +445,7 @@ jobs:
       with:
         path: |
           C:\vcpkg
-        key: x64-windows-sfml-tclap-glm-glew-stb
+        key: x64-windows-freetype-sfml-tclap-glm-glew-stb
 
     - name: Install dependencies (vcpkg)
       if: matrix.DEPS == 'vcpkg' && steps.vcpkg-install.outputs.cache-hit != 'true'
@@ -674,7 +674,7 @@ jobs:
       run: |
         git clone https://github.com/Microsoft/vcpkg.git vcpkg
         ./vcpkg/bootstrap-vcpkg.sh
-        ./vcpkg/vcpkg install tclap glm glew sfml stb
+        ./vcpkg/vcpkg install tclap glm glew freetype sfml stb
 
     - name: Set up compiler flags
       run: |
