@@ -664,7 +664,7 @@ jobs:
 
     - name: Install dependencies (Homebrew)
       if: matrix.DEPS == 'system'
-      run: brew install tclap glm glew sfml mesa-glu
+      run: brew install tclap glm glew freetype sfml mesa-glu
 
     - name: Install dependencies (vcpkg)
       if: matrix.DEPS == 'vcpkg'
